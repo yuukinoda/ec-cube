@@ -1,5 +1,3 @@
-version: "3"
-
 networks:
   backend:
     driver: bridge
@@ -23,10 +21,12 @@ services:
     ## docker build -t ec-cube --no-cache --pull --build-arg TAG=8.1-apache .
     ## docker tag ec-cube ghcr.io/ec-cube/ec-cube-php:8.1-apache
     image: ${REGISTRY:-ghcr.io}/${IMAGE_NAME:-ec-cube/ec-cube-php}:${TAG:-8.1-apache}
+    platform: linux/amd64  # platformをamd64に変更
     ports:
       - 8080:80
       - 4430:443
     volumes:
+      - .:/var/www/html
       ### 同期対象からコストの重いフォルダを除外 #####################
       - "var:/var/www/html/var"
       - "vendor:/var/www/html/vendor"

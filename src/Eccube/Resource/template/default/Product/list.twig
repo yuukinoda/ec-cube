@@ -98,6 +98,21 @@ file that was distributed with this source code.
 {% endblock %}
 
 {% block main %}
+<div class="ec-layoutRole__main">
+        <div class="custom-header">
+            <h2>商品一覧（カスタム）</h2>
+        </div>
+        
+        {# 商品一覧の表示をカスタマイズ #}
+        {% for Product in pagination %}
+            <div class="custom-product-card">
+                <img src="{{ asset(Product.main_list_image|no_image_product, 'save_image') }}">
+                <h3>{{ Product.name }}</h3>
+                <p>{{ Product.getPrice02IncTaxMin|price }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
     {% if search_form.category_id.vars.errors|length > 0 %}
         <div class="ec-searchnavRole">
             <p class="errormsg text-danger">{{ 'front.product.search__category_not_found'|trans }}</p>
